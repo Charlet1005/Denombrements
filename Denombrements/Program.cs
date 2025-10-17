@@ -4,10 +4,14 @@ namespace Denombrements
 {
     /// <summary>
     /// Correction du système de dénombrement en C#
+    /// Romane Chaussis
+    /// 17/10/2025
     /// </summary>
     class Program
     {
-        // Fonction de calcul
+        /// <summary>
+        /// Fonction de calcul qui multiplie les entiers entre nb1 et nb2
+        /// </summary>
         static long Calcul(int nb1, int nb2)
         {
             long resultat = 1;
@@ -17,7 +21,9 @@ namespace Denombrements
             }
             return resultat;
         }
-        // Fonction pour la lecture d'un entier uniquement
+        /// <summary>
+        /// Fonction pour lire un entier au clavier avec gestion d'erreur
+        /// </summary>
         static int LireEntier()
         {
             int nb;
@@ -27,7 +33,7 @@ namespace Denombrements
             }
             return nb;
         }
-        static void Main(string[] args)
+        static void Main()
         {
             while (true)
             {
@@ -41,8 +47,7 @@ namespace Denombrements
                 switch (choix)
                 {
                     case "0":
-                        Environment.Exit(0);
-                        break;
+                        return;
                     // Permutation
                     case "1":
                         {
@@ -50,7 +55,7 @@ namespace Denombrements
                             int n = LireEntier();
                             if (n < 0)
                             {
-                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 : ");
+                                Console.WriteLine("Le nombre doit être supérieur ou égal à 0. ");
                                 break;
                             }
 
@@ -73,14 +78,14 @@ namespace Denombrements
                             int t = LireEntier();
                             if (t < 0)
                             {
-                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 : ");
+                                Console.WriteLine("Le nombre doit être supérieur ou égal à 0. ");
                                 break;
                             }
-                            Console.Write("Nombre d'éléments dans le sous ensemble : ");
+                            Console.Write("Nombre d'éléments dans le sous-ensemble : ");
                             int n = LireEntier();
                             if (t < n || n < 0 || n > t)
                             {
-                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 et inférieur au nombre total : ");
+                                Console.WriteLine("Le nombre d'éléments du sous-ensemble doit être supérieur ou égal à 0 et ne pas dépasser le nombre total d'éléments. ");
                                 break;
                             }
                             long r;
@@ -93,19 +98,19 @@ namespace Denombrements
                                 r = Calcul(t - n + 1, t);
                             }
                             Console.WriteLine("A(" + t + "/" + n + ") = " + r);
-                            break;  
+                            break;
                         }
                     // Combinaison
                     case "3":
                         {
-                            Console.Write("Nombre total d'éléments à gerer : ");
+                            Console.Write("Nombre total d'éléments à gérer : ");
                             int t = LireEntier();
-                            Console.Write("Nombre d'éléments dans le sous ensemble : ");
+                            Console.Write("Nombre d'éléments dans le sous-ensemble : ");
                             int n = LireEntier();
 
                             if (t < 0 || n < 0 || n > t)
                             {
-                                Console.WriteLine("Le nombre doit être supérieur ou égal à 0 et inférieur au nombre total : ");
+                                Console.WriteLine("Le nombre d'éléments du sous-ensemble doit être supérieur ou égal à 0 et ne pas dépasser le nombre total d'éléments.");
                                 break;
                             }
                             long r1, r2;
@@ -123,11 +128,10 @@ namespace Denombrements
                             break;
                         }
                     default:
-                        Console.WriteLine("Choix incorrect, tapez 0, 1, 2 ou 3 : ");
+                        Console.WriteLine("Choix incorrect, tapez 0, 1, 2 ou 3.");
                         break;
                 }
             }
-            Console.WriteLine();
         }
     }
 }
