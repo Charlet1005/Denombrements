@@ -1,79 +1,133 @@
 ﻿using System;
-/// 
-/// Système de dénombrement en C#
-///
+
 namespace Denombrements
 {
+    /// <summary>
+    /// Correction du système de dénombrement en C#
+    /// </summary>
     class Program
     {
+        // Fonction de calcul
+        static long Calcul(int nb1, int nb2)
+        {
+            long resultat = 1;
+            for (int k = nb1; k <= nb2; k++)
+            {
+                resultat *= k;
+            }
+            return resultat;
+        }
+        // Fonction pour la lecture d'un entier uniquement
+        static int LireEntier()
+        {
+            int nb;
+            while (!int.TryParse(Console.ReadLine(), out nb))
+            {
+                Console.Write("Erreur de saisie, recommencez : ");
+            }
+            return nb;
+        }
         static void Main(string[] args)
         {
-            int c = 1;
-            while (c != 0)
+            while (true)
             {
                 Console.WriteLine("Permutation ...................... 1");
                 Console.WriteLine("Arrangement ...................... 2");
                 Console.WriteLine("Combinaison ...................... 3");
                 Console.WriteLine("Quitter .......................... 0");
                 Console.Write("Choix :                            ");
-                c = int.Parse(Console.ReadLine());
+                string choix = (Console.ReadLine());
 
-                if (c == 0) { Environment.Exit(0); }
+                switch (choix)
+                {
+                    case "0":
+                        Environment.Exit(0);
+                        break;
+                    // Permutation
+                    case "1":
+                        {
+                            Console.Write("Nombre total d'éléments à gérer : ");
+                            int n = LireEntier();
+                            if (n < 0)
+                            {
+                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 : ");
+                                break;
+                            }
 
-                if (c == 1)
-                {
-                    // le nombre d'éléments à gérer
-                    Console.Write("nombre total d'éléments à gérer = ");
-                    // saisir le nombre
-                    int n = int.Parse(Console.ReadLine());
-                    // calcul de r
-                    long r = 1;
-                    for (int k = 1; k <= n; k++)
-                        r *= k;
-                    Console.WriteLine(n + "! = " + r);
-                }
-                else
-                {
-                    if (c == 2)
-                    {
-                        // le nombre d'éléments à gérer
-                        Console.Write("nombre total d'éléments à gérer = ");
-                        // saisir le nombre
-                        int t = int.Parse(Console.ReadLine());
-                        // le sous ensemble
-                        Console.Write("nombre d'éléments dans le sous ensemble = ");
-                        // saisir le nombre
-                        int n = int.Parse(Console.ReadLine());
-                        // calcul de r
-                        long r = 1;
-                        for (int k = (t - n + 1); k <= t; k++)
-                            r *= k;
-                        Console.WriteLine("A(" + t + "/" + n + ") = " + r);
-                    }
-                    else
-                    {
-                        // le nombre d'éléments à gérer
-                        Console.Write("nombre total d'éléments à gérer = ");
-                        // saisir le nombre
-                        int t = int.Parse(Console.ReadLine());
-                        // le sous ensemble
-                        Console.Write("nombre d'éléments dans le sous ensemble = ");
-                        // saisir le nombre
-                        int n = int.Parse(Console.ReadLine());
-                        // calcul de r1
-                        long r1 = 1;
-                        for (int k = (t - n + 1); k <= t; k++)
-                            r1 *= k;
-                        // calcul de r2
-                        long r2 = 1;
-                        for (int k = 1; k <= n; k++)
-                            r2 *= k;
-                        // calcul de r3
-                        Console.WriteLine("C(" + t + "/" + n + ") = " + (r1 / r2));
-                    }
+                            long r;
+                            if (n == 0)
+                            {
+                                r = 1;
+                            }
+                            else
+                            {
+                                r = Calcul(1, n);
+                            }
+                            Console.WriteLine(n + "! = " + r);
+                            break;
+                        }
+                    // Arrangement
+                    case "2":
+                        {
+                            Console.Write("Nombre total d'éléments à gérer : ");
+                            int t = LireEntier();
+                            if (t < 0)
+                            {
+                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 : ");
+                                break;
+                            }
+                            Console.Write("Nombre d'éléments dans le sous ensemble : ");
+                            int n = LireEntier();
+                            if (t < n || n < 0 || n > t)
+                            {
+                                Console.WriteLine("Le nombre doit être strictement supérieur à 0 et inférieur au nombre total : ");
+                                break;
+                            }
+                            long r;
+                            if (n == 0)
+                            {
+                                r = 1;
+                            }
+                            else
+                            {
+                                r = Calcul(t - n + 1, t);
+                            }
+                            Console.WriteLine("A(" + t + "/" + n + ") = " + r);
+                            break;  
+                        }
+                    // Combinaison
+                    case "3":
+                        {
+                            Console.Write("Nombre total d'éléments à gerer : ");
+                            int t = LireEntier();
+                            Console.Write("Nombre d'éléments dans le sous ensemble : ");
+                            int n = LireEntier();
+
+                            if (t < 0 || n < 0 || n > t)
+                            {
+                                Console.WriteLine("Le nombre doit être supérieur ou égal à 0 et inférieur au nombre total : ");
+                                break;
+                            }
+                            long r1, r2;
+                            if (n == 0)
+                            {
+                                r1 = 1;
+                                r2 = 1;
+                            }
+                            else
+                            {
+                                r1 = Calcul(t - n + 1, t);
+                                r2 = Calcul(1, n);
+                            }
+                            Console.WriteLine("C(" + t + "/" + n + ") = " + (r1 / r2));
+                            break;
+                        }
+                    default:
+                        Console.WriteLine("Choix incorrect, tapez 0, 1, 2 ou 3 : ");
+                        break;
                 }
             }
-            Console.ReadLine();
+            Console.WriteLine();
         }
     }
 }
